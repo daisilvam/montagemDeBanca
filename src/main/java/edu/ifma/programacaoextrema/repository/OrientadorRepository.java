@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrientadorRepository {
-    public List<Orientador> convidaOrientadores(){
+    public List<Orientador> convidaProfessores(){
         List<Orientador> orientadores = new ArrayList<>();
 
         Orientador orientador = new Orientador();

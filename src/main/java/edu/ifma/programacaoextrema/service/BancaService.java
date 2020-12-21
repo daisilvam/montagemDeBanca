@@ -26,7 +26,7 @@ public class BancaService {
     }
 
     public List<Orientador> convidaOrientadores() throws MontagemBancaException {
-        List<Orientador> orientadores = orientadorRepository.convidaOrientadores();
+        List<Orientador> orientadores = orientadorRepository.convidaProfessores();
         List<Orientador> orientadoresAptos = new ArrayList<>();
 
         for (Orientador orientador : orientadores) {
