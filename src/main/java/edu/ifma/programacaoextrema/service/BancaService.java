@@ -2,9 +2,9 @@ package edu.ifma.programacaoextrema.service;
 
 import edu.ifma.programacaoextrema.model.Aluno;
 import edu.ifma.programacaoextrema.model.Banca;
-import edu.ifma.programacaoextrema.model.Orientador;
+import edu.ifma.programacaoextrema.model.Professor;
 import edu.ifma.programacaoextrema.model.Portaria;
-import edu.ifma.programacaoextrema.repository.OrientadorRepository;
+import edu.ifma.programacaoextrema.repository.ProfessorRepository;
 import edu.ifma.programacaoextrema.util.exception.MontagemBancaException;
 
 import java.time.LocalDateTime;
@@ -13,35 +13,35 @@ import java.util.List;
 
 public class BancaService {
     private AlunoService alunoService = new AlunoService();
-    private OrientadorRepository orientadorRepository = new OrientadorRepository();
+    private ProfessorRepository professorRepository = new ProfessorRepository();
 
     public Banca montaBanca(Aluno aluno) throws MontagemBancaException {
         if (alunoService.verificaAlunoApto(aluno)) {
-            List<Orientador> orientadoresConvidados = convidaOrientadores();
-            return new Banca(orientadoresConvidados);
+            List<Professor> professoresConvidados = convidaProfessores();
+            return new Banca(professoresConvidados);
         } else {
             String erro = "aluno nao pode defender tcc. Percentual minimo nao atingido.";
             throw new MontagemBancaException(erro);
         }
     }
 
-    public List<Orientador> convidaOrientadores() throws MontagemBancaException {
-        List<Orientador> orientadores = orientadorRepository.convidaProfessores();
-        List<Orientador> orientadoresAptos = new ArrayList<>();
+    public List<Professor> convidaProfessores() throws MontagemBancaException {
+        List<Professor> professores = professorRepository.convidaProfessores();
+        List<Professor> professoresAptos = new ArrayList<>();
 
-        for (Orientador orientador : orientadores) {
-            if (orientador.getCurso().equals("Sistemas de Informação")) {
-                orientadoresAptos.add(orientador);
+        for (Professor professor : professores) {
+            if (professor.getCurso().equals("Sistemas de Informação")) {
+                professoresAptos.add(professor);
             } else {
                 String erro = "Orientador(es) convidado(s) não são de Sistemas de Informação.";
                 throw new MontagemBancaException(erro);
             }
         }
 
-        if (orientadoresAptos.size() == 2) {
-            return orientadoresAptos;
+        if (professoresAptos.size() == 2) {
+            return professoresAptos;
         } else {
-            String erro = "É necessário convidar 2 orientadores para banca.";
+            String erro = "É necessário convidar 2 professores para banca.";
             throw new MontagemBancaException(erro);
         }
     }

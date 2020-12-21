@@ -19,10 +19,10 @@ public class Aluno {
     private boolean apto;
 
     @ManyToOne
-    private Orientador orientador;
+    private Professor professor;
 
-    public Aluno(Orientador orientador) {
-        this.setOrientador(orientador);
+    public Aluno(Professor professor) {
+        this.setProfessor(professor);
     }
 
     public void atualizaPercentualConclusao(Double percentualConclusao){
